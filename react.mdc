@@ -1,0 +1,160 @@
+description: "React + TypeScript + Tailwind component and architecture rules"
+globs: ["**/*.jsx", "**/*.tsx", "**/*.ts"]
+alwaysApply: false
+---
+
+# GENERAL PRINCIPLES
+
+- Prefer clarity and simplicity over cleverness.
+- Make components small, pure, and composable.
+- Keep business logic out of UI components; use custom hooks instead.
+- Follow the project's established folder structure and naming conventions.
+
+---
+
+# TYPESCRIPT RULES
+
+- Always use TypeScript for components: `.tsx` for UI, `.ts` for utility/hook files.
+- Define prop types using **TypeScript interfaces** (`interface`) instead of `type` unless unions are required.
+- Use `React.FC` sparingly — prefer explicit `({}: Props) => JSX.Element`.
+- Avoid `any`; if unavoidable, use `unknown` and narrow the type.
+- Always type API functions, hooks, context values, and returns.
+
+---
+
+# REACT COMPONENT RULES
+
+- Use **functional components** only — never use class components.
+- Write components as **pure functions** with no side effects in render.
+- Use **descriptive component names** in PascalCase.
+- Prefer **early returns** to nested conditionals.
+- Avoid boolean prop names like `isActive` determining large branching logic — split into smaller components where possible.
+- Use **composition** over prop drilling — pass children, not config objects.
+
+---
+
+# HOOKS & CUSTOM HOOKS
+
+- Extract logic reused in >1 component into a custom hook.
+- Custom hooks must be placed in `/hooks` or `/lib/hooks`.
+- Hooks must follow the Rules of Hooks:
+  - Only call hooks at the top level.
+  - Only call hooks in React components or custom hooks.
+- Side effects go inside `useEffect`, with correct dependency arrays.
+- Avoid using `useEffect` to synchronise state unnecessarily — prefer derived state.
+
+---
+
+# STATE MANAGEMENT
+
+- Use React local state for UI state.
+- Use Context **only** for global, low-frequency state (e.g., theme, auth).
+- Do not put large or fast-changing data in Context — use a state library instead.
+- If using Zustand/Jotai/Recoil, follow project-specific patterns.
+
+---
+
+# TAILWIND RULES
+
+- **Never write ad-hoc CSS files unless necessary**; use Tailwind first.
+- Keep Tailwind class lists readable: group by layout → spacing → typography → colour → misc.
+- Use extracted component classes when a Tailwind class cluster is reused >2 times.
+- Prefer **classnames** or utility functions for conditional Tailwind classes.
+- If classes get too long, refactor into:
+  - `cn()` utility function + Tailwind merge,
+  - Variants pattern (cva),
+  - `class-variance-authority`.
+
+---
+
+# FILE & FOLDER STRUCTURE
+
+- Use the following organisation:
+
+src/
+components/
+ui/
+layout/
+functional/
+hooks/
+lib/
+pages/ or app/
+store/
+types/
+
+- Co-locate files where appropriate (component + styles + tests).
+- Each component should have:
+  - `Component.tsx`
+  - Optional: `Component.test.tsx`
+  - Optional: `Component.types.ts`
+
+---
+
+# NAMING CONVENTIONS
+
+- Components: `PascalCase`
+- Hooks: `useCamelCase`
+- Utility functions: `camelCase`
+- Classes (Tailwind variants): `cn()` with descriptive labels
+- Context: `SomethingContext` + `SomethingProvider`
+
+---
+
+# FETCHING & ASYNC RULES
+
+- Use `async/await`; avoid `.then()` chains.
+- Always handle loading and error states.
+- Use SWR or React Query where appropriate.
+- If fetching inside a component, consider extracting to a custom hook.
+
+---
+
+# ERROR HANDLING
+
+- Avoid silent failure — log meaningfully.
+- Use error boundaries for UI-level failures.
+- In async hooks, return `{ data, error, isLoading }`.
+
+---
+
+# PERFORMANCE RULES
+
+- Memoise expensive computations using `useMemo`.
+- Wrap components with `React.memo` when props rarely change.
+- Use `useCallback` when passing stable callbacks to children.
+- Avoid unnecessary rerenders by:
+  - Splitting components,
+  - Using key props correctly,
+  - Using transitions (`useTransition`) for heavy work.
+
+---
+
+# TESTING RULES
+
+- Use React Testing Library.
+- Test behaviours and outcomes, not implementation details.
+- Prefer:
+  - `screen.getBy…`
+  - user interactions (`userEvent`)
+  - accessibility-based queries (`getByRole`)
+
+---
+
+# ACCESSIBILITY
+
+- Always provide accessible names: `aria-label`, `alt`, or text.
+- Interactive elements must be real buttons or anchor tags.
+- Use semantic HTML before divs.
+- Ensure focus states are visible.
+
+---
+
+# COMMENTS & DOCUMENTATION
+
+- Write docblocks only when the logic is nontrivial.
+- Add inline comments sparingly and only to explain *why*, not *what*.
+- Document custom hooks with usage notes.
+
+---
+
+END OF RULES

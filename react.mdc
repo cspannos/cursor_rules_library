@@ -1,3 +1,4 @@
+---
 description: "React + TypeScript + Tailwind component and architecture rules"
 globs: ["**/*.jsx", "**/*.tsx", "**/*.ts"]
 alwaysApply: false

@@ -1,0 +1,146 @@
+# ===========================================
+# Git Workflow Standards — Cursor Rules File
+# ===========================================
+rules:
+
+  # -----------------------------
+  # Commit Message Best Practices
+  # -----------------------------
+  - id: git.commit_messages
+    description: Enforce clear, structured commit messages.
+    pattern: "**"
+    hints:
+      - "Use Conventional Commits:"
+      - "  feat: Add new functionality"
+      - "  fix: Patch a bug"
+      - "  docs: Update or add documentation"
+      - "  refactor: Code change that improves structure"
+      - "  chore: Maintenance tasks"
+      - "  test: Add or update tests"
+      - "First line < 72 chars, imperative mood."
+      - "Explain *why*, then *what*, in body if needed."
+      - "Reference issue numbers (#123) when relevant."
+
+  # -----------------------------
+  # Branching Strategy
+  # -----------------------------
+  - id: git.branching
+    description: Require predictable branch names and lifecycle.
+    pattern: "**"
+    hints:
+      - "Use a lightweight GitFlow / trunk-based hybrid:"
+      - "  main → Always deployable, protected."
+      - "  dev  → Integration branch (optional)."
+      - "Feature branches:"
+      - "  feature/<short-description>"
+      - "Bugfix branches:"
+      - "  fix/<issue-or-bug>"
+      - "Hotfixes:"
+      - "  hotfix/<critical-issue>"
+      - "Never commit directly to main."
+      - "Keep feature branches small and short-lived."
+
+  # -----------------------------
+  # Pull Request Standards
+  # -----------------------------
+  - id: git.pull_requests
+    description: PR hygiene and review expectations.
+    pattern: "**"
+    hints:
+      - "PRs must be small and focused: ideally < 300 lines diff."
+      - "Describe: What, Why, How."
+      - "Include testing steps + screenshots for UI changes."
+      - "Link related issues."
+      - "Ensure branch is up-to-date with main before opening PR."
+      - "No failing tests, no commented-out code."
+      - "Approve only after reviewing code — not just tests passing."
+
+  # -----------------------------
+  # Code Review Workflow
+  # -----------------------------
+  - id: git.review
+    description: Enforce consistent code review etiquette.
+    pattern: "**"
+    hints:
+      - "Comment on logic, readability, architecture — not style."
+      - "Prefer questions over demands unless correctness is at stake."
+      - "Use: 'nit:', 'suggestion:', 'question:', 'blocking:' markers."
+      - "Encourage refactoring but avoid scope creep."
+      - "Reviewer responsibility: ensure code is understandable next month."
+
+  # -----------------------------
+  # Merging Best Practices
+  # -----------------------------
+  - id: git.merging
+    description: Rules for clean merges.
+    pattern: "**"
+    hints:
+      - "Prefer squash merges for feature branches."
+      - "Rebase locally before pushing to keep history linear."
+      - "Never rebase published public branches."
+      - "Resolve merge conflicts *meaningfully*, not mechanically."
+      - "After merge: Always delete the branch."
+
+  # -----------------------------
+  # Git Hygiene & Safety
+  # -----------------------------
+  - id: git.hygiene
+    description: Enforce clean repo practices.
+    pattern: "**"
+    hints:
+      - "Never commit secrets — use .env + .gitignore."
+      - "Use .gitattributes for consistent line endings."
+      - "Use .gitignore templates appropriate for the project stack."
+      - "Run lint/test before commit (use pre-commit hooks when possible)."
+      - "Use 'git stash' sparingly — prefer dedicated WIP branches."
+      - "Avoid binary files in Git unless absolutely necessary."
+
+  # -----------------------------
+  # Version Tagging
+  # -----------------------------
+  - id: git.version_tags
+    description: Tagging and releases guidance.
+    pattern: "**"
+    hints:
+      - "Use semantic versioning: vMAJOR.MINOR.PATCH"
+      - "Always tag on main after a release bump."
+      - "Never retag existing tags — create new versions instead."
+      - "Automate changelog generation when possible."
+
+  # -----------------------------
+  # Repository Structure
+  # -----------------------------
+  - id: git.repo_structure
+    description: Keep repos discoverable and consistent.
+    pattern: "**"
+    hints:
+      - "Root must contain: README.md, LICENSE, .gitignore."
+      - "README must explain setup, running, testing, and environment variables."
+      - "Use docs/ for extended documentation."
+      - "Use examples/ when applicable."
+      - "Avoid deeply nested folder structures."
+
+  # -----------------------------
+  # Large File & History Management
+  # -----------------------------
+  - id: git.large_files
+    description: Prevent bloated repo size.
+    pattern: "**"
+    hints:
+      - "Use Git LFS for media, large binaries, or big datasets."
+      - "Never rewrite history unless absolutely necessary."
+      - "Use git-filter-repo only for major cleanups, with team alignment."
+
+  # -----------------------------
+  # Collaboration Norms
+  # -----------------------------
+  - id: git.culture
+    description: Promote healthy team Git workflow.
+    pattern: "**"
+    hints:
+      - "Commit early, commit often — but keep commits meaningful."
+      - "Push frequently to avoid losing work."
+      - "Pull frequently to avoid conflicts."
+      - "Assume positive intent during reviews."
+      - "Document decisions in PRs for future context."
+
